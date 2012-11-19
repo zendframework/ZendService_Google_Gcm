@@ -248,7 +248,7 @@ class Message
      */
     public function setRestrictedPackageName($name)
     {
-        if (!is_null($name) || (!is_string($name) || empty($name))) {
+        if (!is_null($name) && !(is_string($name) && strlen($name) > 0)) {
             throw new Exception\InvalidArgumentException('$name must be null OR a non-empty string');
         }
         $this->restrictedPackageName = $name;
