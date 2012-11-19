@@ -67,6 +67,11 @@ class Response
     protected $results;
 
     /**
+     * @var array
+     */
+    protected $response;
+
+    /**
      * Constructor
      *
      * @param string $response

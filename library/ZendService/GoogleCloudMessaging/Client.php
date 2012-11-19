@@ -102,9 +102,11 @@ class Client
     {
         $client = $this->getHttpClient();
         $client->setUri(self::SERVER_URI);
-        $client->setHeaders('Authorization', 'key=' . $this->getApiKey());
+        $headers = $client->getRequest()->getHeaders();
+        $headers->addHeaderLine('Authorization', 'key=' . $this->getApiKey());
 
-        $response = $client->setMethod('POST')
+        $response = $client->setHeaders($headers)
+                           ->setMethod('POST')
                            ->setRawBody($message->toJson())
                            ->setEncType('application/json')
                            ->send();
@@ -129,6 +131,10 @@ class Client
                 break;
         }
 
-        return new Response($response->getBody(), $message);
+        if (!$response = Json::decode($response->getBody(), Json::TYPE_ARRAY)) {
+            throw new Exception\RuntimeException('Response body did not contain a valid JSON response');
+        }
+
+        return new Response($response, $message);
     }
 }
