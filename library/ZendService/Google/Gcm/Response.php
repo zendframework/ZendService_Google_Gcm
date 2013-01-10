@@ -2,22 +2,26 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @category  ZendService
- * @package   ZendService_GoogleCloudMessaging
+ * @link       http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd New BSD License
+ * @category   ZendService
+ * @package    ZendService_Google
+ * @subpackage Gcm
  */
 
-namespace ZendService\GoogleCloudMessaging;
+namespace ZendService\Google\Gcm;
+
+use ZendService\Google\Exception;
 
 /**
  * Google Cloud Messaging Response
  * This class parses out the response from
  * the Google Cloud Messaging API
  *
- * @category  ZendService
- * @package   ZendService_GoogleCloudMessaging
+ * @category   ZendService
+ * @package    ZendService_Google
+ * @subpackage Gcm
  */
 class Response
 {

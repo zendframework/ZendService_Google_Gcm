@@ -1,6 +1,6 @@
 <phpunit bootstrap="./Bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="ZendService Google Cloud Messaging Test Suite">
+        <testsuite name="ZendService Google Test Suite">
             <directory>./ZendService</directory>
         </testsuite>
     </testsuites>

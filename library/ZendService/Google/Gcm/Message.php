@@ -6,11 +6,12 @@
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @category  ZendService
- * @package   ZendService_GoogleCloudMessaging
+ * @package   ZendService_Google\Gcm
  */
 
-namespace ZendService\GoogleCloudMessaging;
+namespace ZendService\Google\Gcm;
 
+use ZendService\Google\Exception;
 use Zend\Json\Json;
 
 /**
@@ -18,8 +19,9 @@ use Zend\Json\Json;
  * This class defines a message to be sent
  * through the Google Cloud Messaging API.
  *
- * @category  ZendService
- * @package   ZendService_GoogleCloudMessaging
+ * @category   ZendService
+ * @package    ZendService_Google
+ * @subpackage Gcm
  */
 class Message
 {

@@ -6,18 +6,18 @@
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @category  ZendService
- * @package   ZendService_GoogleCloudMessaging
+ * @package   ZendService_Google
  */
 
-namespace ZendService\GoogleCloudMessaging\Exception;
+namespace ZendService\Google\Exception;
 
 /**
- * Invalid Argument Exception
+ * Runtime Exception
  *
  * @category  ZendService
- * @package   ZendService_GoogleCloudMessaging
+ * @package   ZendService_Google
  */
-class InvalidArgumentException extends \InvalidArgumentException
+class RuntimeException extends \RuntimeException
 {
 
 }

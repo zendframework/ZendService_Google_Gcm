@@ -1,4 +1,4 @@
-ZendService\GoogleCloudMessaging component
+ZendService\Google component
 
 You can install using:
 

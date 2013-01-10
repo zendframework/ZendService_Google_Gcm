@@ -2,27 +2,29 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @category  ZendService
- * @package   ZendService_GoogleCloudMessaging
+ * @link       http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd New BSD License
+ * @category   ZendService
+ * @package    ZendService_Google
+ * @subpackage UnitTests
  */
 
-namespace ZendServiceTest\GoogleCloudMessaging;
+namespace ZendServiceTest\Google\Gcm;
 
 use Zend\Http\Client\Adapter\Test;
 use Zend\Http\Client as HttpClient;
-use ZendService\GoogleCloudMessaging\Client;
-use ZendService\GoogleCloudMessaging\Message;
-use ZendService\GoogleCloudMessaging\Response;
+use ZendService\Google\Gcm\Client;
+use ZendService\Google\Gcm\Message;
+use ZendService\Google\Gcm\Response;
 
 /**
  * @category   ZendService
- * @package    ZendService_GoogleCloudMessaging
+ * @package    ZendService_Google
  * @subpackage UnitTests
  * @group      ZendService
- * @group      ZendService_GoogleCloudMessaging
+ * @group      ZendService_Google
+ * @group      ZendService_Google_Gcm
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
