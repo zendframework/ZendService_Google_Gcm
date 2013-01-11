@@ -1,6 +1,9 @@
-ZendService\Google component
+ZendService\Google\Gcm component
+================================
 
-You can install using:
+Provides support for Google push notifications.
+
+Install dependencies using:
 
 ```
 curl -s https://getcomposer.org/installer | php

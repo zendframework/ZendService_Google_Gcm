@@ -43,7 +43,7 @@ class Client
 
     /**
      * Get API Key
-     * 
+     *
      * @return string
      */
     public function getApiKey()
@@ -92,7 +92,7 @@ class Client
         $this->httpClient = $http;
         return $this;
     }
-    
+
     /**
      * Send Message
      *
@@ -113,8 +113,7 @@ class Client
                            ->setEncType('application/json')
                            ->send();
 
-        switch ($response->getStatusCode())
-        {
+        switch ($response->getStatusCode()) {
             case 500:
                 throw new Exception\RuntimeException('500 Internal Server Error');
                 break;
