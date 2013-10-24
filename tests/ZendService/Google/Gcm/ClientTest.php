@@ -85,6 +85,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($client, $this->gcmClient->getHttpClient());
     }
 
+    public function testSendThrowsExceptionWhenServiceUnavailable()
+    {
+        $this->setExpectedException('RuntimeException');
+        $this->httpAdapter->setResponse('HTTP/1.1 503 Service Unavailable' . "\r\n\r\n");
+        $this->gcmClient->send($this->message);
+    }
+
     public function testSendThrowsExceptionWhenServerUnavailable()
     {
         $this->setExpectedException('RuntimeException');

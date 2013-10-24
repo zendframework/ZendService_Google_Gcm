@@ -119,7 +119,7 @@ class Client
                 break;
             case 503:
                 $exceptionMessage = '503 Server Unavailable';
-                if ($retry = $response->getHeader('Retry-After')) {
+                if ($retry = $response->getHeaders()->get('Retry-After')) {
                     $exceptionMessage .= '; Retry After: ' . $retry;
                 }
                 throw new Exception\RuntimeException($exceptionMessage);
