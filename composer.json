@@ -28,7 +28,6 @@
         "zendframework/zend-json": ">=2.0.0"
     },
     "require-dev": {
-        "zendframework/zendframework": "@stable",
         "phpunit/PHPUnit": "3.7.*"
     }
 }
