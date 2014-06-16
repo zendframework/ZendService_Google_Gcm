@@ -179,7 +179,7 @@ class Message
         if (!is_string($key) || empty($key)) {
             throw new Exception\InvalidArgumentException('$key must be a non-empty string');
         }
-        if (in_array($key, $this->data)) {
+        if (array_key_exists($key, $this->data)) {
             throw new Exception\RuntimeException('$key conflicts with current set data');
         }
         $this->data[$key] = $value;
