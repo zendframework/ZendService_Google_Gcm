@@ -97,6 +97,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->m->addData(array('1234'), 'value');
     }
 
+    public function testDuplicateDataKeyThrowsException()
+    {
+        $this->setExpectedException('RuntimeException');
+        $this->m->setData($this->validData);
+        $this->m->addData('key', 'value');
+    }
+
     public function testExpectedDelayWhileIdleBehavior()
     {
         $this->assertEquals($this->m->getDelayWhileIdle(), false);
