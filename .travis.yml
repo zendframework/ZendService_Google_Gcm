@@ -9,7 +9,6 @@ php:
 
 before_install:
  - cp tests/TestConfiguration.php.travis tests/TestConfiguration.php
- - composer self-update
  - composer install --dev
 
 script:
