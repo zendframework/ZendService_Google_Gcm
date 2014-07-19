@@ -13,7 +13,7 @@ before_install:
  - composer install --dev
 
 script:
- - php ./tests/run-tests.php
+ - phpunit -c tests/phpunit.xml.dist
 
 notifications:
   irc: "irc.freenode.org#zftalk.2"
