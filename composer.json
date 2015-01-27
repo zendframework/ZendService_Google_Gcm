@@ -13,7 +13,7 @@
     "license": "BSD-3-Clause",
     "autoload": {
         "psr-0": {
-            "ZendService\\Google\\Gcm\\": "library/"
+            "ZendService\\Google\\": "library/"
         }
     },
     "repositories": [
