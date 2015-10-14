@@ -24,7 +24,6 @@ use ZendService\Google\Gcm\Message;
  */
 class MessageTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $validRegistrationIds = array('1234567890', '0987654321');
     protected $validData = array('key' => 'value', 'key2' => array('value'));
 
@@ -157,5 +156,4 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->m->getDryRun(), false);
         $this->assertNotContains('dry_run', $this->m->toJson());
     }
-
 }

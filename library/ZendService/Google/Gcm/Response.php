@@ -225,7 +225,7 @@ class Response
         $results = $this->results;
         if ($this->message && $results) {
             $ids = $this->message->getRegistrationIds();
-            while($id = array_shift($ids)) {
+            while ($id = array_shift($ids)) {
                 $results[$id] = array_shift($results);
             }
         }
