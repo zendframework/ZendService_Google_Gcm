@@ -41,6 +41,16 @@ class Message
     protected $data = array();
 
     /**
+     * @var string
+     */
+    protected $title;
+
+    /**
+     * @var string
+     */
+    protected $body;
+
+    /**
      * @var bool
      */
     protected $delayWhileIdle = false;
@@ -198,6 +208,50 @@ class Message
     }
 
     /**
+     * Set Title
+     *
+     * @param mixed $title
+     * @return Message
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get Title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set Body
+     *
+     * @param mixed $body
+     * @return Message
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * Get Body
+     *
+     * @return mixed
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
      * Set Delay While Idle
      *
      * @param bool $delay
@@ -307,6 +361,12 @@ class Message
         }
         if ($this->data) {
             $json['data'] = $this->data;
+        }
+        if ($this->title) {
+            $json['notification']['title'] = $this->title;
+        }
+        if ($this->body) {
+            $json['notification']['body'] = $this->body;
         }
         if ($this->delayWhileIdle) {
             $json['delay_while_idle'] = $this->delayWhileIdle;
