@@ -68,23 +68,21 @@ class Message {
 	
 	/**
 	 *
-	 * @author Ventimiglia Samuel
-	 * @since 19/02/2015
-	 * @var string $priority
+	 * @var string
 	 */
 	protected $priority;
 	
 	/**
 	 *
-	 * @return the string
+	 * @return priority
 	 */
 	public function getPriority() {
 		return $this->priority;
 	}
 	
 	/**
-	 * Method to set push notifications priority
-	 * aviable values are:
+	 * Set priority
+	 *
 	 * normal or high
 	 *
 	 * @param string $priority        	
