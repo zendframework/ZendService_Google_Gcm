@@ -85,6 +85,7 @@ class Client {
 					 *             ===Unable to enable crypto on TCP connection gcm-http.googleapis.com: make sure the "sslcafile" or "sslcapath"
 					 *             option are properly set for the environment.======
 					 *             --------------------------------------
+					 *             added also test testSetHttpSSLPathClient()
 					 */
 					'sslcapath' => '/etc/ssl/certs' 
 			) );
