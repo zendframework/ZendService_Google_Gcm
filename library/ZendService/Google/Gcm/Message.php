@@ -83,8 +83,6 @@ class Message {
 	/**
 	 * Set priority
 	 *
-	 * normal or high
-	 *
 	 * @param string $priority        	
 	 */
 	public function setPriority($priority) {
