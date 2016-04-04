@@ -76,16 +76,6 @@ class Client {
 			$this->httpClient = new HttpClient ();
 			$this->httpClient->setOptions ( array (
 					'strictredirects' => true,
-					/**
-					 *
-					 * @author Ventimiglia Samuel
-					 * @since 26-02-2015
-					 * @filesource Added this line becouse some server return
-					 *            
-					 *             ===Unable to enable crypto on TCP connection gcm-http.googleapis.com: make sure the "sslcafile" or "sslcapath"
-					 *             option are properly set for the environment.======
-					 *             --------------------------------------
-					 */
 					'sslcapath' => '/etc/ssl/certs' 
 			) );
 		}
