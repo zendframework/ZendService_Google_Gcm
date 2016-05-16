@@ -70,7 +70,7 @@ class Message {
 	 *
 	 * @var string
 	 */
-	protected $priority = 'low';
+	protected $priority = 'normal';
 	
 	/**
 	 *
