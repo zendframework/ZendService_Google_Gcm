@@ -41,6 +41,11 @@ class Message
     protected $data = array();
 
     /**
+     * @var array
+     */
+    protected $notification = array();
+    
+    /**
      * @var bool
      */
     protected $delayWhileIdle = false;
@@ -60,6 +65,11 @@ class Message
      */
     protected $dryRun = false;
 
+    /**
+     * @var string
+     */
+    protected $priority = 'normal';
+    
     /**
      * Set Registration Ids
      *
@@ -196,6 +206,63 @@ class Message
         $this->data = array();
         return $this;
     }
+    
+    /**
+     * Set Notification
+     *
+     * @param array $data
+     * @return Message
+     */
+    public function setNotification(array $data)
+    {
+        $this->clearNotification();
+        foreach ($notification as $k => $v) {
+            $this->addNotification($k, $v);
+        }
+        return $this;
+    }
+
+    /**
+     * Get Notification
+     *
+     * @return array
+     */
+    public function getNotification()
+    {
+        return $this->notification;
+    }
+
+    /**
+     * Add Notification
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return Message
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
+     */
+    public function addNotification($key, $value)
+    {
+        if (!is_string($key) || empty($key)) {
+            throw new Exception\InvalidArgumentException('$key must be a non-empty string');
+        }
+        if (array_key_exists($key, $this->data)) {
+            throw new Exception\RuntimeException('$key conflicts with current set data');
+        }
+        $this->notification[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * Clear Notification
+     *
+     * @return Message
+     */
+    public function clearNotification()
+    {
+        $this->notification = array();
+        return $this;
+    }
 
     /**
      * Set Delay While Idle
@@ -290,6 +357,28 @@ class Message
     }
 
     /**
+     * Set Priority
+     *
+     * @param bool $priority
+     * @return Message
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * Get Priority
+     *
+     * @return bool
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+    
+    /**
      * To JSON
      * Utility method to put the JSON into the
      * GCM proper format for sending the message.
@@ -319,6 +408,9 @@ class Message
         }
         if ($this->dryRun) {
             $json['dry_run'] = $this->dryRun;
+        }
+        if ($this->priority) {
+            $json['priority'] = $this->priority;
         }
         return Json::encode($json);
     }
