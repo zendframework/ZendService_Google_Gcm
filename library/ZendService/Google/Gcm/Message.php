@@ -61,6 +61,11 @@ class Message
     protected $dryRun = false;
 
     /**
+     * @var string
+     */
+    protected $priority = 'normal';
+    
+    /**
      * Set Registration Ids
      *
      * @param array $ids
