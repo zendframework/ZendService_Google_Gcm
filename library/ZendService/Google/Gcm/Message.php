@@ -290,6 +290,28 @@ class Message
     }
 
     /**
+     * Set Priority
+     *
+     * @param bool $priority
+     * @return Message
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * Get Priority
+     *
+     * @return bool
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+    
+    /**
      * To JSON
      * Utility method to put the JSON into the
      * GCM proper format for sending the message.
@@ -319,6 +341,9 @@ class Message
         }
         if ($this->dryRun) {
             $json['dry_run'] = $this->dryRun;
+        }
+        if ($this->priority) {
+            $json['priority'] = $this->priority;
         }
         return Json::encode($json);
     }
