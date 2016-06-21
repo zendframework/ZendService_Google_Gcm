@@ -1,34 +1,28 @@
 {
-    "name": "zendframework/zendservice-google-gcm",
-    "description": "OOP wrapper for Google Cloud Messaging",
-    "type": "library",
-    "keywords": [
-        "zf2",
-        "gcm",
-        "push",
-        "notification",
-        "google"
-    ],
-    "homepage": "http://packages.zendframework.com/",
-    "license": "BSD-3-Clause",
-    "autoload": {
-        "psr-0": {
-            "ZendService\\Google\\Gcm\\": "library/",
-            "ZendService\\Google\\Exception\\": "library/"
-        }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://packages.zendframework.com/"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.3",
-        "zendframework/zend-http": ">=2.0.0",
-        "zendframework/zend-json": ">=2.0.0"
-    },
-    "require-dev": {
-        "phpunit/PHPUnit": "3.7.*"
+  "name" : "zendframework/zendservice-google-gcm",
+  "description" : "OOP wrapper for Google Cloud Messaging",
+  "require" : {
+    "php" : ">=5.3.3",
+    "zendframework/zend-http" : ">=2.0.0",
+    "zendframework/zend-json" : ">=2.0.0",
+    "squizlabs/php_codesniffer" : "^2.3",
+    "friendsofphp/php-cs-fixer" : "v1.11.4"
+  },
+  "require-dev" : {
+    "phpunit/PHPUnit" : "3.7.*"
+  },
+  "license" : "BSD-3-Clause",
+  "keywords" : [ "zf2", "gcm", "push", "notification", "google" ],
+  "autoload" : {
+    "psr-0" : {
+      "ZendService\\Google\\Gcm\\" : "library/",
+      "ZendService\\Google\\Exception\\" : "library/"
     }
+  },
+  "type" : "library",
+  "scripts" : {
+    "cs-fix" : "php-cs-fixer fix . -vv --level=psr0 --dry-run",
+    "test":"phpunit"
+  },
+  "homepage" : "http://packages.zendframework.com/"
 }
