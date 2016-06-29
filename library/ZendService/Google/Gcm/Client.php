@@ -29,7 +29,7 @@ class Client
     /**
      * @const string Server URI
      */
-    const SERVER_URI = 'https://gcm-http.googleapis.com/gcm/send';
+    const SERVER_URI = 'https://fcm.googleapis.com/fcm/send';
 
     /**
      * @var Zend\Http\Client
