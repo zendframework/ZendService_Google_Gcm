@@ -12,7 +12,7 @@ Provides support for Google push notifications.
 Install this library using [Composer](http://getcomposer.org/):
 
 ```bash
-$ composer require zendframework/zendservice-google-gcm
+$ composer require LonnyX/zendservice-google-gcm
 ```
 
 ## Documentation ##

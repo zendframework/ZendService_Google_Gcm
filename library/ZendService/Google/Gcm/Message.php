@@ -36,9 +36,19 @@ class Message
     protected $collapseKey;
 
     /**
+     * @var string
+     */
+    protected $priority;
+
+    /**
      * @var array
      */
     protected $data = array();
+
+    /**
+     * @var array
+     */
+    protected $notification = array();
 
     /**
      * @var bool
@@ -141,6 +151,32 @@ class Message
     }
 
     /**
+     * Get Collapse Key
+     *
+     * @return string
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Set Collapse Key
+     *
+     * @param string $key
+     * @return Message
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setPriority($priority)
+    {
+        if (!is_null($priority) && !(is_string($priority) && strlen($priority) > 0)) {
+            throw new Exception\InvalidArgumentException('$priority must be null or a non-empty string');
+        }
+        $this->priority = $priority;
+        return $this;
+    }
+
+    /**
      * Set Data
      *
      * @param array $data
@@ -194,6 +230,63 @@ class Message
     public function clearData()
     {
         $this->data = array();
+        return $this;
+    }
+
+    /**
+     * Set Data
+     *
+     * @param array $data
+     * @return Message
+     */
+    public function setNotification(array $data)
+    {
+        $this->clearNotification();
+        foreach ($data as $k => $v) {
+            $this->addNotification($k, $v);
+        }
+        return $this;
+    }
+
+    /**
+     * Get notification
+     *
+     * @return array
+     */
+    public function getNotification()
+    {
+        return $this->notification;
+    }
+
+    /**
+     * Add notification data
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return Message
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
+     */
+    public function addNotification($key, $value)
+    {
+        if (!is_string($key) || empty($key)) {
+            throw new Exception\InvalidArgumentException('$key must be a non-empty string');
+        }
+        if (array_key_exists($key, $this->notification)) {
+            throw new Exception\RuntimeException('$key conflicts with current set data');
+        }
+        $this->notification[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * Clear Data
+     *
+     * @return Message
+     */
+    public function clearNotification()
+    {
+        $this->notification = array();
         return $this;
     }
 
@@ -305,8 +398,15 @@ class Message
         if ($this->collapseKey) {
             $json['collapse_key'] = $this->collapseKey;
         }
+        if ($this->priority) {
+            $json['priority'] = $this->priority;
+        }
+
         if ($this->data) {
             $json['data'] = $this->data;
+        }
+        if ($this->notification) {
+            $json['notification'] = $this->notification;
         }
         if ($this->delayWhileIdle) {
             $json['delay_while_idle'] = $this->delayWhileIdle;
