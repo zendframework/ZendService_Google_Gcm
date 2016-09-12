@@ -81,7 +81,7 @@ class Response
      * @param string $response
      * @param Message $message
      * @return Response
-     * @throws Exception\ServerUnavailable
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct($response = null, Message $message = null)
     {
