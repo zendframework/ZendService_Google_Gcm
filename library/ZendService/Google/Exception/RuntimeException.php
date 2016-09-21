@@ -19,5 +19,4 @@ namespace ZendService\Google\Exception;
  */
 class RuntimeException extends \RuntimeException
 {
-
 }
