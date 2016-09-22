@@ -58,7 +58,11 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidConstructorThrowsException()
     {
-        $this->setExpectedException('PHPUnit_Framework_Error');
+        if( PHP_VERSION_ID >= 70000 ) {
+            $this->setExpectedException('TypeError');
+        } else {
+            $this->setExpectedException('PHPUnit_Framework_Error');
+        }
         $response = new Response('{bad');
     }
 
