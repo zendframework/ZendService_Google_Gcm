@@ -9,7 +9,7 @@
         "notification",
         "google"
     ],
-    "homepage": "http://packages.zendframework.com/",
+    "homepage": "https://github.com/zendframework/zendservice-google-gcm",
     "license": "BSD-3-Clause",
     "autoload": {
         "psr-0": {
