@@ -25,6 +25,11 @@ use ZendService\Google\Gcm\Response;
  */
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Message
+     */
+    private $m;
+
     public function setUp()
     {
         $this->m = new Message();
@@ -33,32 +38,32 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     public function testConstructorExpectedBehavior()
     {
         $response = new Response();
-        $this->assertNull($response->getResponse());
-        $this->assertNull($response->getMessage());
+        self::assertNull($response->getResponse());
+        self::assertNull($response->getMessage());
 
         $message = new Message();
         $response = new Response(null, $message);
-        $this->assertEquals($message, $response->getMessage());
-        $this->assertNull($response->getResponse());
+        self::assertEquals($message, $response->getMessage());
+        self::assertNull($response->getResponse());
 
         $message = new Message();
-        $responseArray = array(
-            'results' => array(
-                array('message_id' => '1:1234'),
-            ),
+        $responseArray = [
+            'results' => [
+                ['message_id' => '1:1234'],
+            ],
             'success' => 1,
             'failure' => 0,
             'canonical_ids' => 0,
             'multicast_id' => 1,
-        );
+        ];
         $response = new Response($responseArray, $message);
-        $this->assertEquals($responseArray, $response->getResponse());
-        $this->assertEquals($message, $response->getMessage());
+        self::assertEquals($responseArray, $response->getResponse());
+        self::assertEquals($message, $response->getMessage());
     }
 
     public function testInvalidConstructorThrowsException()
     {
-        $this->setExpectedException('PHPUnit_Framework_Error');
+        $this->setExpectedException(\PHPUnit_Framework_Error::class);
         $response = new Response('{bad');
     }
 
@@ -67,36 +72,36 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $message = new Message();
         $response = new Response();
         $response->setMessage($message);
-        $this->assertEquals($message, $response->getMessage());
+        self::assertEquals($message, $response->getMessage());
     }
 
     public function testResponse()
     {
-        $responseArr = array(
-            'results' => array(
-                array('message_id' => '1:234'),
-            ),
+        $responseArr = [
+            'results' => [
+                ['message_id' => '1:234'],
+            ],
             'success' => 1,
             'failure' => 0,
             'canonical_ids' => 0,
             'multicast_id' => '123',
-        );
+        ];
         $response = new Response();
         $response->setResponse($responseArr);
-        $this->assertEquals($responseArr, $response->getResponse());
-        $this->assertEquals(1, $response->getSuccessCount());
-        $this->assertEquals(0, $response->getFailureCount());
-        $this->assertEquals(0, $response->getCanonicalCount());
+        self::assertEquals($responseArr, $response->getResponse());
+        self::assertEquals(1, $response->getSuccessCount());
+        self::assertEquals(0, $response->getFailureCount());
+        self::assertEquals(0, $response->getCanonicalCount());
         // test results non correlated
-        $expected = array(array('message_id' => '1:234'));
-        $this->assertEquals($expected, $response->getResults());
-        $expected = array(0 => '1:234');
-        $this->assertEquals($expected, $response->getResult(Response::RESULT_MESSAGE_ID));
+        $expected = [['message_id' => '1:234']];
+        self::assertEquals($expected, $response->getResults());
+        $expected = [0 => '1:234'];
+        self::assertEquals($expected, $response->getResult(Response::RESULT_MESSAGE_ID));
 
         $message = new Message();
-        $message->setRegistrationIds(array('ABCDEF'));
+        $message->setRegistrationIds(['ABCDEF']);
         $response->setMessage($message);
-        $expected = array('ABCDEF' => '1:234');
-        $this->assertEquals($expected, $response->getResult(Response::RESULT_MESSAGE_ID));
+        $expected = ['ABCDEF' => '1:234'];
+        self::assertEquals($expected, $response->getResult(Response::RESULT_MESSAGE_ID));
     }
 }
