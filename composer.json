@@ -22,7 +22,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.3",
+        "php": "^5.5 || ^7.0",
         "zendframework/zend-http": "^2.0",
         "zendframework/zend-json": "^2.0"
     },
