@@ -70,13 +70,15 @@ class Client
     /**
      * Get HTTP Client
      *
+     * @throws \Zend\Http\Client\Exception\InvalidArgumentException
+     *
      * @return \Zend\Http\Client
      */
     public function getHttpClient()
     {
         if (!$this->httpClient) {
             $this->httpClient = new HttpClient();
-            $this->httpClient->setOptions(array('strictredirects' => true));
+            $this->httpClient->setOptions(['strictredirects' => true]);
         }
         return $this->httpClient;
     }
@@ -103,6 +105,8 @@ class Client
      * @throws \Zend\Http\Exception\RuntimeException
      * @throws \Zend\Http\Client\Exception\RuntimeException
      * @throws \Zend\Http\Exception\InvalidArgumentException
+     * @throws \Zend\Http\Client\Exception\InvalidArgumentException
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
      *
      * @return Response
      */

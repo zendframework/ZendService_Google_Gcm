@@ -28,7 +28,7 @@ class Message
     /**
      * @var array
      */
-    protected $registrationIds = array();
+    protected $registrationIds = [];
 
     /**
      * @var string
@@ -38,7 +38,7 @@ class Message
     /**
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * @var bool
@@ -64,6 +64,9 @@ class Message
      * Set Registration Ids
      *
      * @param array $ids
+     *
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
+     *
      * @return Message
      */
     public function setRegistrationIds(array $ids)
@@ -110,7 +113,7 @@ class Message
      */
     public function clearRegistrationIds()
     {
-        $this->registrationIds = array();
+        $this->registrationIds = [];
         return $this;
     }
 
@@ -133,7 +136,7 @@ class Message
      */
     public function setCollapseKey($key)
     {
-        if (!is_null($key) && !(is_string($key) && strlen($key) > 0)) {
+        if (null !== $key && !(is_string($key) && strlen($key) > 0)) {
             throw new Exception\InvalidArgumentException('$key must be null or a non-empty string');
         }
         $this->collapseKey = $key;
@@ -144,6 +147,9 @@ class Message
      * Set Data
      *
      * @param array $data
+     *
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
+     *
      * @return Message
      */
     public function setData(array $data)
@@ -170,9 +176,11 @@ class Message
      *
      * @param string $key
      * @param mixed $value
-     * @return Message
-     * @throws Exception\InvalidArgumentException
+     *
      * @throws Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
+     *
+     * @return Message
      */
     public function addData($key, $value)
     {
@@ -193,7 +201,7 @@ class Message
      */
     public function clearData()
     {
-        $this->data = array();
+        $this->data = [];
         return $this;
     }
 
@@ -250,7 +258,7 @@ class Message
      */
     public function setRestrictedPackageName($name)
     {
-        if (!is_null($name) && !(is_string($name) && strlen($name) > 0)) {
+        if (null !== $name && !(is_string($name) && strlen($name) > 0)) {
             throw new Exception\InvalidArgumentException('$name must be null OR a non-empty string');
         }
         $this->restrictedPackageName = $name;
@@ -298,7 +306,7 @@ class Message
      */
     public function toJson()
     {
-        $json = array();
+        $json = [];
         if ($this->registrationIds) {
             $json['registration_ids'] = $this->registrationIds;
         }
