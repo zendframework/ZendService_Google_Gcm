@@ -12,9 +12,13 @@
     "homepage": "https://github.com/zendframework/zendservice-google-gcm",
     "license": "BSD-3-Clause",
     "autoload": {
-        "psr-0": {
-            "ZendService\\Google\\Gcm\\": "library/",
-            "ZendService\\Google\\Exception\\": "library/"
+        "psr-4": {
+            "ZendService\\Google\\": "library/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZendServiceTest\\Google\\": "tests/"
         }
     },
     "require": {
