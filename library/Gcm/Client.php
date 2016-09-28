@@ -32,7 +32,7 @@ class Client
     const SERVER_URI = 'https://gcm-http.googleapis.com/gcm/send';
 
     /**
-     * @var Zend\Http\Client
+     * @var \Zend\Http\Client
      */
     protected $httpClient;
 
@@ -56,7 +56,7 @@ class Client
      *
      * @param string $apiKey
      * @return Client
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setApiKey($apiKey)
     {
@@ -70,7 +70,7 @@ class Client
     /**
      * Get HTTP Client
      *
-     * @return Zend\Http\Client
+     * @return \Zend\Http\Client
      */
     public function getHttpClient()
     {
@@ -84,7 +84,7 @@ class Client
     /**
      * Set HTTP Client
      *
-     * @param Zend\Http\Client
+     * @param \Zend\Http\Client
      * @return Client
      */
     public function setHttpClient(HttpClient $http)
@@ -97,6 +97,12 @@ class Client
      * Send Message
      *
      * @param Message $message
+     *
+     * @throws \Zend\Json\Exception\RuntimeException
+     * @throws \ZendService\Google\Exception\RuntimeException
+     * @throws \Zend\Http\Exception\RuntimeException
+     * @throws \Zend\Http\Client\Exception\RuntimeException
+     * @throws \Zend\Http\Exception\InvalidArgumentException
      *
      * @return Response
      */
