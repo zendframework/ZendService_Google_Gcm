@@ -34,13 +34,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     protected function _createJSONResponse($id, $success, $failure, $ids, $results)
     {
-        return json_encode(array(
+        return json_encode([
             'multicast_id' => $id,
             'success' => $success,
             'failure' => $failure,
             'canonical_ids' => $ids,
             'results' => $results
-        ));
+        ]);
     }
 
     public function setUp()
@@ -59,7 +59,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSetApiKeyThrowsExceptionOnNonString()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $this->gcmClient->setApiKey(array());
+        $this->gcmClient->setApiKey([]);
     }
 
     public function testSetApiKey()

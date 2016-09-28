@@ -78,10 +78,12 @@ class Response
     /**
      * Constructor
      *
-     * @param string $response
+     * @param string  $response
      * @param Message $message
+     *
      * @return Response
-     * @throws Exception\ServerUnavailable
+     *
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
      */
     public function __construct($response = null, Message $message = null)
     {
@@ -186,11 +188,11 @@ class Response
      *
      * @return array multi dimensional array of:
      *         NOTE: key is registration_id if the message is passed.
-     *         'registration_id' => array(
+     *         'registration_id' => [
      *             'message_id' => 'id',
      *             'error' => 'error',
      *             'registration_id' => 'id'
-     *          )
+     *          ]
      */
     public function getResults()
     {
@@ -206,7 +208,7 @@ class Response
      */
     public function getResult($flag)
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->correlate() as $k => $v) {
             if (isset($v[$flag])) {
                 $ret[$k] = $v[$flag];
