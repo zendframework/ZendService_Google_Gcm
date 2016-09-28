@@ -63,8 +63,22 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidConstructorThrowsException()
     {
+        if (PHP_VERSION_ID < 70000) {
+            self::markTestSkipped('PHP 7 required.');
+        }
+
+        $this->setExpectedException(\TypeError::class);
+        new Response('{bad');
+    }
+
+    public function testInvalidConstructorThrowsExceptionOnPhp7()
+    {
+        if (PHP_VERSION_ID >= 70000) {
+            self::markTestSkipped('PHP >=5.5 required.');
+        }
+
         $this->setExpectedException(\PHPUnit_Framework_Error::class);
-        $response = new Response('{bad');
+        new Response('{bad');
     }
 
     public function testMessageExpectedBehavior()
