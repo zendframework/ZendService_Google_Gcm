@@ -78,10 +78,12 @@ class Response
     /**
      * Constructor
      *
-     * @param string $response
+     * @param string  $response
      * @param Message $message
+     *
      * @return Response
-     * @throws Exception\ServerUnavailable
+     *
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
      */
     public function __construct($response = null, Message $message = null)
     {
@@ -135,19 +137,17 @@ class Response
      */
     public function setResponse(array $response)
     {
-        if (!isset($response['results']) ||
-            !isset($response['success']) ||
-            !isset($response['failure']) ||
-            !isset($response['canonical_ids']) ||
-            !isset($response['multicast_id'])) {
+        if (! isset($response['results'], $response['success'], $response['failure'], $response['canonical_ids'], $response['multicast_id'])) {
             throw new Exception\InvalidArgumentException('Response did not contain the proper fields');
         }
-        $this->response = $response;
-        $this->results = $response['results'];
-        $this->cntSuccess = (int) $response['success'];
-        $this->cntFailure = (int) $response['failure'];
+
+        $this->response     = $response;
+        $this->results      = $response['results'];
+        $this->cntSuccess   = (int) $response['success'];
+        $this->cntFailure   = (int) $response['failure'];
         $this->cntCanonical = (int) $response['canonical_ids'];
-        $this->id = (int) $response['multicast_id'];
+        $this->id           = (int) $response['multicast_id'];
+
         return $this;
     }
 
@@ -186,11 +186,11 @@ class Response
      *
      * @return array multi dimensional array of:
      *         NOTE: key is registration_id if the message is passed.
-     *         'registration_id' => array(
+     *         'registration_id' => [
      *             'message_id' => 'id',
      *             'error' => 'error',
      *             'registration_id' => 'id'
-     *          )
+     *          ]
      */
     public function getResults()
     {
@@ -206,7 +206,7 @@ class Response
      */
     public function getResult($flag)
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->correlate() as $k => $v) {
             if (isset($v[$flag])) {
                 $ret[$k] = $v[$flag];

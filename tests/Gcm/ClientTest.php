@@ -16,7 +16,6 @@ use Zend\Http\Client\Adapter\Test;
 use Zend\Http\Client as HttpClient;
 use ZendService\Google\Gcm\Client;
 use ZendService\Google\Gcm\Message;
-use ZendService\Google\Gcm\Response;
 
 /**
  * @category   ZendService
@@ -28,20 +27,34 @@ use ZendService\Google\Gcm\Response;
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Test
+     */
     protected $httpAdapter;
+    /**
+     * @var HttpClient
+     */
     protected $httpClient;
+
+    /**
+     * @var Client
+     */
     protected $gcmClient;
+
+    /**
+     * @var Message
+     */
     protected $message;
 
     protected function _createJSONResponse($id, $success, $failure, $ids, $results)
     {
-        return json_encode(array(
+        return json_encode([
             'multicast_id' => $id,
             'success' => $success,
             'failure' => $failure,
             'canonical_ids' => $ids,
             'results' => $results
-        ));
+        ]);
     }
 
     public function setUp()
@@ -60,28 +73,26 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSetApiKeyThrowsExceptionOnNonString()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $this->gcmClient->setApiKey(array());
+        $this->gcmClient->setApiKey([]);
     }
 
     public function testSetApiKey()
     {
         $key = 'a-login-token';
         $this->gcmClient->setApiKey($key);
-        $this->assertEquals($key, $this->gcmClient->getApiKey());
+        self::assertEquals($key, $this->gcmClient->getApiKey());
     }
 
     public function testGetHttpClientReturnsDefault()
     {
-        $gcm = new Client();
-        $this->assertEquals('Zend\Http\Client', get_class($gcm->getHttpClient()));
-        $this->assertTrue($gcm->getHttpClient() instanceof HttpClient);
+        self::assertInstanceOf('Zend\Http\Client', (new Client())->getHttpClient());
     }
 
     public function testSetHttpClient()
     {
         $client = new HttpClient();
         $this->gcmClient->setHttpClient($client);
-        $this->assertEquals($client, $this->gcmClient->getHttpClient());
+        self::assertEquals($client, $this->gcmClient->getHttpClient());
     }
 
     public function testSendThrowsExceptionWhenServiceUnavailable()
@@ -114,7 +125,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testSendResultInvalidRegistrationId()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, array(array('error' => 'InvalidRegistration')));
+        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'InvalidRegistration']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK' . "\r\n" .
             'Context-Type: text/html' . "\r\n\r\n" .
@@ -123,15 +134,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->gcmClient->send($this->message);
         $result = $response->getResults();
         $result = array_shift($result);
-        $this->assertEquals('InvalidRegistration', $result['error']);
-        $this->assertEquals(0, $response->getSuccessCount());
-        $this->assertEquals(0, $response->getCanonicalCount());
-        $this->assertEquals(1, $response->getFailureCount());
+        self::assertEquals('InvalidRegistration', $result['error']);
+        self::assertEquals(0, $response->getSuccessCount());
+        self::assertEquals(0, $response->getCanonicalCount());
+        self::assertEquals(1, $response->getFailureCount());
     }
 
     public function testSendResultMismatchSenderId()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, array(array('error' => 'MismatchSenderId')));
+        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'MismatchSenderId']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK' . "\r\n" .
             'Context-Type: text/html' . "\r\n\r\n" .
@@ -140,15 +151,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->gcmClient->send($this->message);
         $result = $response->getResults();
         $result = array_shift($result);
-        $this->assertEquals('MismatchSenderId', $result['error']);
-        $this->assertEquals(0, $response->getSuccessCount());
-        $this->assertEquals(0, $response->getCanonicalCount());
-        $this->assertEquals(1, $response->getFailureCount());
+        self::assertEquals('MismatchSenderId', $result['error']);
+        self::assertEquals(0, $response->getSuccessCount());
+        self::assertEquals(0, $response->getCanonicalCount());
+        self::assertEquals(1, $response->getFailureCount());
     }
 
     public function testSendResultNotRegistered()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, array(array('error' => 'NotRegistered')));
+        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'NotRegistered']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK' . "\r\n" .
             'Context-Type: text/html' . "\r\n\r\n" .
@@ -157,15 +168,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->gcmClient->send($this->message);
         $result = $response->getResults();
         $result = array_shift($result);
-        $this->assertEquals('NotRegistered', $result['error']);
-        $this->assertEquals(0, $response->getSuccessCount());
-        $this->assertEquals(0, $response->getCanonicalCount());
-        $this->assertEquals(1, $response->getFailureCount());
+        self::assertEquals('NotRegistered', $result['error']);
+        self::assertEquals(0, $response->getSuccessCount());
+        self::assertEquals(0, $response->getCanonicalCount());
+        self::assertEquals(1, $response->getFailureCount());
     }
 
     public function testSendResultMessageTooBig()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, array(array('error' => 'MessageTooBig')));
+        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'MessageTooBig']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK' . "\r\n" .
             'Context-Type: text/html' . "\r\n\r\n" .
@@ -174,15 +185,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->gcmClient->send($this->message);
         $result = $response->getResults();
         $result = array_shift($result);
-        $this->assertEquals('MessageTooBig', $result['error']);
-        $this->assertEquals(0, $response->getSuccessCount());
-        $this->assertEquals(0, $response->getCanonicalCount());
-        $this->assertEquals(1, $response->getFailureCount());
+        self::assertEquals('MessageTooBig', $result['error']);
+        self::assertEquals(0, $response->getSuccessCount());
+        self::assertEquals(0, $response->getCanonicalCount());
+        self::assertEquals(1, $response->getFailureCount());
     }
 
     public function testSendResultSuccessful()
     {
-        $body = $this->_createJSONResponse(101, 1, 0, 0, array(array('message_id' => '1:2342')));
+        $body = $this->_createJSONResponse(101, 1, 0, 0, [['message_id' => '1:2342']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK' . "\r\n" .
             'Context-Type: text/html' . "\r\n\r\n" .
@@ -191,15 +202,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->gcmClient->send($this->message);
         $result = $response->getResults();
         $result = array_shift($result);
-        $this->assertEquals('1:2342', $result['message_id']);
-        $this->assertEquals(1, $response->getSuccessCount());
-        $this->assertEquals(0, $response->getCanonicalCount());
-        $this->assertEquals(0, $response->getFailureCount());
+        self::assertEquals('1:2342', $result['message_id']);
+        self::assertEquals(1, $response->getSuccessCount());
+        self::assertEquals(0, $response->getCanonicalCount());
+        self::assertEquals(0, $response->getFailureCount());
     }
 
     public function testSendResultSuccessfulWithRegistrationId()
     {
-        $body = $this->_createJSONResponse(101, 1, 0, 1, array(array('message_id' => '1:2342', 'registration_id' => 'testfoo')));
+        $body = $this->_createJSONResponse(101, 1, 0, 1, [['message_id' => '1:2342', 'registration_id' => 'testfoo']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK' . "\r\n" .
             'Context-Type: text/html' . "\r\n\r\n" .
@@ -208,10 +219,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->gcmClient->send($this->message);
         $result = $response->getResults();
         $result = array_shift($result);
-        $this->assertEquals('1:2342', $result['message_id']);
-        $this->assertEquals('testfoo', $result['registration_id']);
-        $this->assertEquals(1, $response->getSuccessCount());
-        $this->assertEquals(1, $response->getCanonicalCount());
-        $this->assertEquals(0, $response->getFailureCount());
+        self::assertEquals('1:2342', $result['message_id']);
+        self::assertEquals('testfoo', $result['registration_id']);
+        self::assertEquals(1, $response->getSuccessCount());
+        self::assertEquals(1, $response->getCanonicalCount());
+        self::assertEquals(0, $response->getFailureCount());
     }
 }
