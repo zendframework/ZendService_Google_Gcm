@@ -16,7 +16,6 @@ use Zend\Http\Client\Adapter\Test;
 use Zend\Http\Client as HttpClient;
 use ZendService\Google\Gcm\Client;
 use ZendService\Google\Gcm\Message;
-use ZendService\Google\Gcm\Response;
 
 /**
  * @category   ZendService
