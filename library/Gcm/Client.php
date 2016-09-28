@@ -96,9 +96,9 @@ class Client
     /**
      * Send Message
      *
-     * @param Mesage $message
+     * @param Message $message
+     *
      * @return Response
-     * @throws Exception\RuntimeException
      */
     public function send(Message $message)
     {
