@@ -77,6 +77,7 @@ class Client
         if (!$this->httpClient) {
             $this->httpClient = new HttpClient();
             $this->httpClient->setOptions(array('strictredirects' => true));
+            $this->httpClient->setOptions(array('sslverifypeer' => false));
         }
         return $this->httpClient;
     }
