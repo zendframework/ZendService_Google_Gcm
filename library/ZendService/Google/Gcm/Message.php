@@ -300,7 +300,10 @@ class Message
     {
         $json = array();
         if ($this->registrationIds) {
-            $json['registration_ids'] = $this->registrationIds;
+        	if(count($this->registrationIds) == 1 && $this->registrationIds[0] =='/topics/global')
+        		$json['to'] = '/topics/global';
+			else
+            	$json['registration_ids'] = $this->registrationIds;
         }
         if ($this->collapseKey) {
             $json['collapse_key'] = $this->collapseKey;
