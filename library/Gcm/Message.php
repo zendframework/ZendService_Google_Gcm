@@ -1,14 +1,14 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
+ * Zend Framework (http://framework.zend.com/).
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ *
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
+ *
  * @category  ZendService
- * @package   ZendService_Google\Gcm
  */
-
 namespace ZendService\Google\Gcm;
 
 use ZendService\Google\Exception;
@@ -20,15 +20,13 @@ use Zend\Json\Json;
  * through the Google Cloud Messaging API.
  *
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage Gcm
  */
 class Message
 {
     /**
      * @var array
      */
-    protected $registrationIds = array();
+    protected $registrationIds = [];
 
     /**
      * @var string
@@ -38,7 +36,7 @@ class Message
     /**
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * @var bool
@@ -61,9 +59,12 @@ class Message
     protected $dryRun = false;
 
     /**
-     * Set Registration Ids
+     * Set Registration Ids.
      *
      * @param array $ids
+     *
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
+     *
      * @return Message
      */
     public function setRegistrationIds(array $ids)
@@ -72,11 +73,12 @@ class Message
         foreach ($ids as $id) {
             $this->addRegistrationId($id);
         }
+
         return $this;
     }
 
     /**
-     * Get Registration Ids
+     * Get Registration Ids.
      *
      * @return array
      */
@@ -86,10 +88,12 @@ class Message
     }
 
     /**
-     * Add Registration Ids
+     * Add Registration Ids.
      *
      * @param string $id
+     *
      * @return Message
+     *
      * @throws Exception\InvalidArgumentException
      */
     public function addRegistrationId($id)
@@ -100,22 +104,24 @@ class Message
         if (!in_array($id, $this->registrationIds)) {
             $this->registrationIds[] = $id;
         }
+
         return $this;
     }
 
     /**
-     * Clear Registration Ids
+     * Clear Registration Ids.
      *
      * @return Message
      */
     public function clearRegistrationIds()
     {
-        $this->registrationIds = array();
+        $this->registrationIds = [];
+
         return $this;
     }
 
     /**
-     * Get Collapse Key
+     * Get Collapse Key.
      *
      * @return string
      */
@@ -125,25 +131,31 @@ class Message
     }
 
     /**
-     * Set Collapse Key
+     * Set Collapse Key.
      *
      * @param string $key
+     *
      * @return Message
+     *
      * @throws Exception\InvalidArgumentException
      */
     public function setCollapseKey($key)
     {
-        if (!is_null($key) && !(is_string($key) && strlen($key) > 0)) {
+        if (null !== $key && !(is_string($key) && strlen($key) > 0)) {
             throw new Exception\InvalidArgumentException('$key must be null or a non-empty string');
         }
         $this->collapseKey = $key;
+
         return $this;
     }
 
     /**
-     * Set Data
+     * Set Data.
      *
      * @param array $data
+     *
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
+     *
      * @return Message
      */
     public function setData(array $data)
@@ -152,11 +164,12 @@ class Message
         foreach ($data as $k => $v) {
             $this->addData($k, $v);
         }
+
         return $this;
     }
 
     /**
-     * Get Data
+     * Get Data.
      *
      * @return array
      */
@@ -166,13 +179,15 @@ class Message
     }
 
     /**
-     * Add Data
+     * Add Data.
      *
      * @param string $key
-     * @param mixed $value
-     * @return Message
-     * @throws Exception\InvalidArgumentException
+     * @param mixed  $value
+     *
      * @throws Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
+     *
+     * @return Message
      */
     public function addData($key, $value)
     {
@@ -183,34 +198,38 @@ class Message
             throw new Exception\RuntimeException('$key conflicts with current set data');
         }
         $this->data[$key] = $value;
+
         return $this;
     }
 
     /**
-     * Clear Data
+     * Clear Data.
      *
      * @return Message
      */
     public function clearData()
     {
-        $this->data = array();
+        $this->data = [];
+
         return $this;
     }
 
     /**
-     * Set Delay While Idle
+     * Set Delay While Idle.
      *
      * @param bool $delay
+     *
      * @return Message
      */
     public function setDelayWhileIdle($delay)
     {
         $this->delayWhileIdle = (bool) $delay;
+
         return $this;
     }
 
     /**
-     * Get Delay While Idle
+     * Get Delay While Idle.
      *
      * @return bool
      */
@@ -220,19 +239,21 @@ class Message
     }
 
     /**
-     * Set Time to Live
+     * Set Time to Live.
      *
      * @param int $ttl
+     *
      * @return Message
      */
     public function setTimeToLive($ttl)
     {
         $this->timeToLive = (int) $ttl;
+
         return $this;
     }
 
     /**
-     * Get Time to Live
+     * Get Time to Live.
      *
      * @return int
      */
@@ -242,23 +263,26 @@ class Message
     }
 
     /**
-     * Set Restricted Package Name
+     * Set Restricted Package Name.
      *
      * @param string $name
+     *
      * @return Message
+     *
      * @throws Exception\InvalidArgumentException
      */
     public function setRestrictedPackageName($name)
     {
-        if (!is_null($name) && !(is_string($name) && strlen($name) > 0)) {
+        if (null !== $name && !(is_string($name) && strlen($name) > 0)) {
             throw new Exception\InvalidArgumentException('$name must be null OR a non-empty string');
         }
         $this->restrictedPackageName = $name;
+
         return $this;
     }
 
     /**
-     * Get Restricted Package Name
+     * Get Restricted Package Name.
      *
      * @return string
      */
@@ -268,19 +292,21 @@ class Message
     }
 
     /**
-     * Set Dry Run
+     * Set Dry Run.
      *
      * @param bool $dryRun
+     *
      * @return Message
      */
     public function setDryRun($dryRun)
     {
         $this->dryRun = (bool) $dryRun;
+
         return $this;
     }
 
     /**
-     * Get Dry Run
+     * Get Dry Run.
      *
      * @return bool
      */
@@ -298,7 +324,7 @@ class Message
      */
     public function toJson()
     {
-        $json = array();
+        $json = [];
         if ($this->registrationIds) {
             $json['registration_ids'] = $this->registrationIds;
         }
@@ -320,6 +346,7 @@ class Message
         if ($this->dryRun) {
             $json['dry_run'] = $this->dryRun;
         }
+
         return Json::encode($json);
     }
 }
