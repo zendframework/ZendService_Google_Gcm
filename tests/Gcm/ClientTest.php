@@ -1,15 +1,14 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
+ * Zend Framework (http://framework.zend.com/).
  *
  * @link       http://github.com/zendframework/zf2 for the canonical source repository
+ *
  * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd New BSD License
+ *
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage UnitTests
  */
-
 namespace ZendServiceTest\Google\Gcm;
 
 use Zend\Http\Client\Adapter\Test;
@@ -19,8 +18,6 @@ use ZendService\Google\Gcm\Message;
 
 /**
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage UnitTests
  * @group      ZendService
  * @group      ZendService_Google
  * @group      ZendService_Google_Gcm
@@ -53,7 +50,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'success' => $success,
             'failure' => $failure,
             'canonical_ids' => $ids,
-            'results' => $results
+            'results' => $results,
         ]);
     }
 
@@ -98,28 +95,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSendThrowsExceptionWhenServiceUnavailable()
     {
         $this->setExpectedException('RuntimeException');
-        $this->httpAdapter->setResponse('HTTP/1.1 503 Service Unavailable' . "\r\n\r\n");
+        $this->httpAdapter->setResponse('HTTP/1.1 503 Service Unavailable'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }
 
     public function testSendThrowsExceptionWhenServerUnavailable()
     {
         $this->setExpectedException('RuntimeException');
-        $this->httpAdapter->setResponse('HTTP/1.1 500 Internal Server Error' . "\r\n\r\n");
+        $this->httpAdapter->setResponse('HTTP/1.1 500 Internal Server Error'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }
 
     public function testSendThrowsExceptionWhenInvalidAuthToken()
     {
         $this->setExpectedException('RuntimeException');
-        $this->httpAdapter->setResponse('HTTP/1.1 401 Unauthorized' . "\r\n\r\n");
+        $this->httpAdapter->setResponse('HTTP/1.1 401 Unauthorized'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }
 
     public function testSendThrowsExceptionWhenInvalidPayload()
     {
         $this->setExpectedException('RuntimeException');
-        $this->httpAdapter->setResponse('HTTP/1.1 400 Bad Request' . "\r\n\r\n");
+        $this->httpAdapter->setResponse('HTTP/1.1 400 Bad Request'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }
 
@@ -127,8 +124,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'InvalidRegistration']]);
         $this->httpAdapter->setResponse(
-            'HTTP/1.1 200 OK' . "\r\n" .
-            'Context-Type: text/html' . "\r\n\r\n" .
+            'HTTP/1.1 200 OK'."\r\n".
+            'Context-Type: text/html'."\r\n\r\n".
             $body
         );
         $response = $this->gcmClient->send($this->message);
@@ -144,8 +141,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'MismatchSenderId']]);
         $this->httpAdapter->setResponse(
-            'HTTP/1.1 200 OK' . "\r\n" .
-            'Context-Type: text/html' . "\r\n\r\n" .
+            'HTTP/1.1 200 OK'."\r\n".
+            'Context-Type: text/html'."\r\n\r\n".
             $body
         );
         $response = $this->gcmClient->send($this->message);
@@ -161,8 +158,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'NotRegistered']]);
         $this->httpAdapter->setResponse(
-            'HTTP/1.1 200 OK' . "\r\n" .
-            'Context-Type: text/html' . "\r\n\r\n" .
+            'HTTP/1.1 200 OK'."\r\n".
+            'Context-Type: text/html'."\r\n\r\n".
             $body
         );
         $response = $this->gcmClient->send($this->message);
@@ -178,8 +175,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'MessageTooBig']]);
         $this->httpAdapter->setResponse(
-            'HTTP/1.1 200 OK' . "\r\n" .
-            'Context-Type: text/html' . "\r\n\r\n" .
+            'HTTP/1.1 200 OK'."\r\n".
+            'Context-Type: text/html'."\r\n\r\n".
             $body
         );
         $response = $this->gcmClient->send($this->message);
@@ -195,8 +192,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $body = $this->_createJSONResponse(101, 1, 0, 0, [['message_id' => '1:2342']]);
         $this->httpAdapter->setResponse(
-            'HTTP/1.1 200 OK' . "\r\n" .
-            'Context-Type: text/html' . "\r\n\r\n" .
+            'HTTP/1.1 200 OK'."\r\n".
+            'Context-Type: text/html'."\r\n\r\n".
             $body
         );
         $response = $this->gcmClient->send($this->message);
@@ -212,8 +209,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $body = $this->_createJSONResponse(101, 1, 0, 1, [['message_id' => '1:2342', 'registration_id' => 'testfoo']]);
         $this->httpAdapter->setResponse(
-            'HTTP/1.1 200 OK' . "\r\n" .
-            'Context-Type: text/html' . "\r\n\r\n" .
+            'HTTP/1.1 200 OK'."\r\n".
+            'Context-Type: text/html'."\r\n\r\n".
             $body
         );
         $response = $this->gcmClient->send($this->message);

@@ -1,15 +1,14 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
+ * Zend Framework (http://framework.zend.com/).
  *
  * @link       http://github.com/zendframework/zf2 for the canonical source repository
+ *
  * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd New BSD License
+ *
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage Gcm
  */
-
 namespace ZendService\Google\Gcm;
 
 use ZendService\Google\Exception;
@@ -17,11 +16,9 @@ use ZendService\Google\Exception;
 /**
  * Google Cloud Messaging Response
  * This class parses out the response from
- * the Google Cloud Messaging API
+ * the Google Cloud Messaging API.
  *
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage Gcm
  */
 class Response
 {
@@ -76,7 +73,7 @@ class Response
     protected $response;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string  $response
      * @param Message $message
@@ -97,7 +94,7 @@ class Response
     }
 
     /**
-     * Get Message
+     * Get Message.
      *
      * @return Message
      */
@@ -107,19 +104,21 @@ class Response
     }
 
     /**
-     * Set Message
+     * Set Message.
      *
      * @param Message $message
+     *
      * @return Response
      */
     public function setMessage(Message $message)
     {
         $this->message = $message;
+
         return $this;
     }
 
     /**
-     * Get Response
+     * Get Response.
      *
      * @return array
      */
@@ -129,30 +128,32 @@ class Response
     }
 
     /**
-     * Set Response
+     * Set Response.
      *
      * @param array $response
+     *
      * @return Response
+     *
      * @throws Exception\InvalidArgumentException
      */
     public function setResponse(array $response)
     {
-        if (! isset($response['results'], $response['success'], $response['failure'], $response['canonical_ids'], $response['multicast_id'])) {
+        if (!isset($response['results'], $response['success'], $response['failure'], $response['canonical_ids'], $response['multicast_id'])) {
             throw new Exception\InvalidArgumentException('Response did not contain the proper fields');
         }
 
-        $this->response     = $response;
-        $this->results      = $response['results'];
-        $this->cntSuccess   = (int) $response['success'];
-        $this->cntFailure   = (int) $response['failure'];
+        $this->response = $response;
+        $this->results = $response['results'];
+        $this->cntSuccess = (int) $response['success'];
+        $this->cntFailure = (int) $response['failure'];
         $this->cntCanonical = (int) $response['canonical_ids'];
-        $this->id           = (int) $response['multicast_id'];
+        $this->id = (int) $response['multicast_id'];
 
         return $this;
     }
 
     /**
-     * Get Success Count
+     * Get Success Count.
      *
      * @return int
      */
@@ -162,7 +163,7 @@ class Response
     }
 
     /**
-     * Get Failure Count
+     * Get Failure Count.
      *
      * @return int
      */
@@ -172,7 +173,7 @@ class Response
     }
 
     /**
-     * Get Canonical Count
+     * Get Canonical Count.
      *
      * @return int
      */
@@ -182,15 +183,15 @@ class Response
     }
 
     /**
-     * Get Results
+     * Get Results.
      *
      * @return array multi dimensional array of:
-     *         NOTE: key is registration_id if the message is passed.
-     *         'registration_id' => [
-     *             'message_id' => 'id',
-     *             'error' => 'error',
-     *             'registration_id' => 'id'
-     *          ]
+     *               NOTE: key is registration_id if the message is passed.
+     *               'registration_id' => [
+     *               'message_id' => 'id',
+     *               'error' => 'error',
+     *               'registration_id' => 'id'
+     *               ]
      */
     public function getResults()
     {
@@ -198,9 +199,10 @@ class Response
     }
 
     /**
-     * Get Singular Result
+     * Get Singular Result.
      *
-     * @param  int   $flag one of the RESULT_* flags
+     * @param int $flag one of the RESULT_* flags
+     *
      * @return array singular array with keys being registration id
      *               value is the type of result
      */
@@ -212,11 +214,12 @@ class Response
                 $ret[$k] = $v[$flag];
             }
         }
+
         return $ret;
     }
 
     /**
-     * Correlate Message and Result
+     * Correlate Message and Result.
      *
      * @return array
      */
@@ -229,6 +232,7 @@ class Response
                 $results[$id] = array_shift($results);
             }
         }
+
         return $results;
     }
 }

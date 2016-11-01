@@ -1,14 +1,14 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
+ * Zend Framework (http://framework.zend.com/).
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ *
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
+ *
  * @category  ZendService
- * @package   ZendService_Google\Gcm
  */
-
 namespace ZendService\Google\Gcm;
 
 use ZendService\Google\Exception;
@@ -21,8 +21,6 @@ use Zend\Json\Json;
  * through the Google Cloud Messaging API.
  *
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage Gcm
  */
 class Client
 {
@@ -42,7 +40,7 @@ class Client
     protected $apiKey;
 
     /**
-     * Get API Key
+     * Get API Key.
      *
      * @return string
      */
@@ -52,10 +50,12 @@ class Client
     }
 
     /**
-     * Set API Key
+     * Set API Key.
      *
      * @param string $apiKey
+     *
      * @return Client
+     *
      * @throws Exception\InvalidArgumentException
      */
     public function setApiKey($apiKey)
@@ -64,11 +64,12 @@ class Client
             throw new Exception\InvalidArgumentException('The api key must be a string and not empty');
         }
         $this->apiKey = $apiKey;
+
         return $this;
     }
 
     /**
-     * Get HTTP Client
+     * Get HTTP Client.
      *
      * @throws \Zend\Http\Client\Exception\InvalidArgumentException
      *
@@ -80,23 +81,26 @@ class Client
             $this->httpClient = new HttpClient();
             $this->httpClient->setOptions(['strictredirects' => true]);
         }
+
         return $this->httpClient;
     }
 
     /**
-     * Set HTTP Client
+     * Set HTTP Client.
      *
      * @param \Zend\Http\Client
+     *
      * @return Client
      */
     public function setHttpClient(HttpClient $http)
     {
         $this->httpClient = $http;
+
         return $this;
     }
 
     /**
-     * Send Message
+     * Send Message.
      *
      * @param Message $message
      *
@@ -115,7 +119,7 @@ class Client
         $client = $this->getHttpClient();
         $client->setUri(self::SERVER_URI);
         $headers = $client->getRequest()->getHeaders();
-        $headers->addHeaderLine('Authorization', 'key=' . $this->getApiKey());
+        $headers->addHeaderLine('Authorization', 'key='.$this->getApiKey());
 
         $response = $client->setHeaders($headers)
                            ->setMethod('POST')
@@ -130,7 +134,7 @@ class Client
             case 503:
                 $exceptionMessage = '503 Server Unavailable';
                 if ($retry = $response->getHeaders()->get('Retry-After')) {
-                    $exceptionMessage .= '; Retry After: ' . $retry;
+                    $exceptionMessage .= '; Retry After: '.$retry;
                 }
                 throw new Exception\RuntimeException($exceptionMessage);
                 break;

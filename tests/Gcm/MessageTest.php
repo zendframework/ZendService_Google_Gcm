@@ -1,23 +1,20 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
+ * Zend Framework (http://framework.zend.com/).
  *
  * @link       http://github.com/zendframework/zf2 for the canonical source repository
+ *
  * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd New BSD License
+ *
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage UnitTests
  */
-
 namespace ZendServiceTest\Google\Gcm;
 
 use ZendService\Google\Gcm\Message;
 
 /**
  * @category   ZendService
- * @package    ZendService_Google
- * @subpackage UnitTests
  * @group      ZendService
  * @group      ZendService_Google
  * @group      ZendService_Google_Gcm
@@ -32,7 +29,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     protected $validData = [
         'key' => 'value',
         'key2' => [
-            'value'
+            'value',
         ],
     ];
 
