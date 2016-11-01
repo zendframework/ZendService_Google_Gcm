@@ -101,6 +101,21 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         self::assertContains('data', $this->m->toJson());
     }
 
+    public function testExpectedNotificationBehavior()
+    {
+        $this->assertEquals($this->m->getNotification(), array());
+        $this->assertNotContains('notification', $this->m->toJson());
+        $this->m->setNotification($this->validData);
+        $this->assertEquals($this->m->getNotification(), $this->validData);
+        $this->assertContains('notification', $this->m->toJson());
+        $this->m->clearNotification();
+        $this->assertEquals($this->m->getNotification(), array());
+        $this->assertNotContains('notification', $this->m->toJson());
+        $this->m->addNotification('mykey', 'myvalue');
+        $this->assertEquals($this->m->getNotification(), array('mykey' => 'myvalue'));
+        $this->assertContains('notification', $this->m->toJson());
+    }
+
     public function testInvalidDataThrowsException()
     {
         $this->setExpectedException(\InvalidArgumentException::class);
