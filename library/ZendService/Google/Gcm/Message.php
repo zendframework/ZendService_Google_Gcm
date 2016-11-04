@@ -61,6 +61,11 @@ class Message
     protected $dryRun = false;
 
     /**
+     * @var string
+     */
+    protected $priority = 'normal';
+
+    /**
      * Set Registration Ids
      *
      * @param array $ids
@@ -290,6 +295,25 @@ class Message
     }
 
     /**
+     * Set the priority. Allowed values are 'normal' and 'high'
+     * @param string $priority either 'normal' or 'high'
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * Get the priority for this message
+     * @return string
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
      * To JSON
      * Utility method to put the JSON into the
      * GCM proper format for sending the message.
@@ -320,6 +344,10 @@ class Message
         if ($this->dryRun) {
             $json['dry_run'] = $this->dryRun;
         }
+        if($this->priority) {
+            $json['priority'] = $this->priority;
+        }
+
         return Json::encode($json);
     }
 }
