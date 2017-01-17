@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.0 - TBD
+## 2.0.0 - 2017-01-17
 
 ### Added
 
@@ -24,24 +24,6 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#27](https://github.com/zendframework/ZendService_Google_Gcm/pull/27) Fix coding style (use ::class and short arrays)
 - [#27](https://github.com/zendframework/ZendService_Google_Gcm/pull/27) Fix docblocks for IDE integration
 - [#20](https://github.com/zendframework/ZendService_Google_Gcm/pull/25) Change endpoint to FCM
-
-## 1.0.4 - TBD
-
-### Added
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
 
 ## 1.0.3 - 2015-10-13
 
