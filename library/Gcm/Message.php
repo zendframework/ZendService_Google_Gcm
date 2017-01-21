@@ -49,11 +49,6 @@ class Message
     protected $notification = [];
 
     /**
-     * @var bool
-     */
-    protected $delayWhileIdle = false;
-
-    /**
      * @var int
      */
     protected $timeToLive = 2419200;
@@ -309,30 +304,6 @@ class Message
     }
 
     /**
-     * Set Delay While Idle
-     *
-     * @param bool $delay
-     *
-     * @return Message
-     */
-    public function setDelayWhileIdle($delay)
-    {
-        $this->delayWhileIdle = (bool) $delay;
-
-        return $this;
-    }
-
-    /**
-     * Get Delay While Idle.
-     *
-     * @return bool
-     */
-    public function getDelayWhileIdle()
-    {
-        return $this->delayWhileIdle;
-    }
-
-    /**
      * Set Time to Live.
      *
      * @param int $ttl
@@ -433,9 +404,6 @@ class Message
         }
         if ($this->notification) {
             $json['notification'] = $this->notification;
-        }
-        if ($this->delayWhileIdle) {
-            $json['delay_while_idle'] = $this->delayWhileIdle;
         }
         if ($this->timeToLive != 2419200) {
             $json['time_to_live'] = $this->timeToLive;

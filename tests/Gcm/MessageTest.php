@@ -129,18 +129,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->m->addData('key', 'value');
     }
 
-    public function testExpectedDelayWhileIdleBehavior()
-    {
-        self::assertEquals($this->m->getDelayWhileIdle(), false);
-        self::assertNotContains('delay_while_idle', $this->m->toJson());
-        $this->m->setDelayWhileIdle(true);
-        self::assertEquals($this->m->getDelayWhileIdle(), true);
-        self::assertContains('delay_while_idle', $this->m->toJson());
-        $this->m->setDelayWhileIdle(false);
-        self::assertEquals($this->m->getDelayWhileIdle(), false);
-        self::assertNotContains('delay_while_idle', $this->m->toJson());
-    }
-
     public function testExpectedTimeToLiveBehavior()
     {
         self::assertEquals($this->m->getTimeToLive(), 2419200);
