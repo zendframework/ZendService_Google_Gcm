@@ -29,6 +29,11 @@ class Message
     protected $registrationIds = [];
 
     /**
+     * @var array
+     */
+    protected $topics = [];
+
+    /**
      * @var string
      */
     protected $collapseKey;
@@ -126,6 +131,68 @@ class Message
     public function clearRegistrationIds()
     {
         $this->registrationIds = [];
+
+        return $this;
+    }
+
+    /**
+     * Set topics.
+     *
+     * @param array $topics
+     *
+     * @throws \ZendService\Google\Exception\InvalidArgumentException
+     *
+     * @return Message
+     */
+    public function setTopics(array $topics)
+    {
+        $this->clearTopics();
+        foreach ($topics as $condition) {
+            $this->addTopic($condition);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get topics.
+     *
+     * @return array
+     */
+    public function getTopics()
+    {
+        return $this->topics;
+    }
+
+    /**
+     * Add topic.
+     *
+     * @param string $topic
+     *
+     * @throws Exception\InvalidArgumentException
+     *
+     * @return Message
+     */
+    public function addTopic($topic)
+    {
+        if (!is_string($topic) || empty($topic)) {
+            throw new Exception\InvalidArgumentException('$topic must be a non-empty string');
+        }
+        if (!in_array($topic, $this->topics)) {
+            $this->topics[] = $topic;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Clear topics.
+     *
+     * @return Message
+     */
+    public function clearTopics()
+    {
+        $this->topics = [];
 
         return $this;
     }
@@ -419,6 +486,22 @@ class Message
     public function toJson()
     {
         $json = [];
+
+        if (count($this->topics) === 1) {
+            $to = $this->topics[0];
+
+            $json['to'] = (!preg_match('!^/topics/!', $to) ? '/topics/' : '') . $to;
+        } elseif ($this->topics) {
+            $conditions = array_map(
+                function ($topic) {
+                    return $topic . (!preg_match('/ in topics$/', $topic) ? ' in topics' : '');
+                },
+                $this->topics
+            );
+
+            $json['condition'] = implode(' || ', $conditions);
+        }
+
         if ($this->registrationIds) {
             $json['registration_ids'] = $this->registrationIds;
         }

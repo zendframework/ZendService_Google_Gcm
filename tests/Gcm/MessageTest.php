@@ -26,6 +26,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         '0987654321',
     ];
 
+    protected $validTopics = [
+        'general',
+        'singular',
+    ];
+
     protected $validData = [
         'key' => 'value',
         'key2' => [
@@ -60,6 +65,30 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->m->addRegistrationId('1029384756');
         self::assertEquals($this->m->getRegistrationIds(), ['1029384756']);
         self::assertContains('registration_ids', $this->m->toJson());
+    }
+
+    public function testExpectedTopicsBehavior()
+    {
+        self::assertEquals($this->m->getTopics(), []);
+        self::assertNotContains('"to"', $this->m->toJson());
+        self::assertNotContains('condition', $this->m->toJson());
+        $this->m->setTopics($this->validTopics);
+        self::assertEquals($this->m->getTopics(), $this->validTopics);
+        foreach ($this->validTopics as $topic) {
+            $this->m->addTopic($topic);
+        }
+        self::assertEquals($this->m->getTopics(), $this->validTopics);
+        self::assertNotContains('"to"', $this->m->toJson());
+        self::assertContains('condition', $this->m->toJson());
+        $this->m->clearTopics();
+        self::assertEquals($this->m->getTopics(), []);
+        self::assertNotContains('"to"', $this->m->toJson());
+        self::assertNotContains('condition', $this->m->toJson());
+        $this->m->addTopic('general');
+        self::assertEquals($this->m->getTopics(), ['general']);
+        self::assertContains('"to"', $this->m->toJson());
+        self::assertContains('\/topics\/general', $this->m->toJson());
+        self::assertNotContains('condition', $this->m->toJson());
     }
 
     public function testInvalidRegistrationIdThrowsException()
