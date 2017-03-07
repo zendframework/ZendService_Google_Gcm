@@ -23,6 +23,9 @@ use Zend\Json\Json;
  */
 class Message
 {
+    const CONDITION_AND = '&&';
+    const CONDITION_OR = '||';
+
     /**
      * @var array
      */
@@ -32,6 +35,11 @@ class Message
      * @var array
      */
     protected $topics = [];
+
+    /**
+     * @var string
+     */
+    protected $conditionOperator = self::CONDITION_OR;
 
     /**
      * @var string
@@ -195,6 +203,32 @@ class Message
         $this->topics = [];
 
         return $this;
+    }
+
+    /**
+     * Get condition logical operator.
+     *
+     * @return string
+     */
+    public function getConditionOperator()
+    {
+        return $this->conditionOperator;
+    }
+
+    /**
+     * Set condition logical operator.
+     *
+     * @param string $conditionOperator
+     *
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setConditionOperator($conditionOperator)
+    {
+        if (!in_array($conditionOperator, [self::CONDITION_OR, self::CONDITION_AND], true)) {
+            throw new Exception\InvalidArgumentException(sprintf('"%s" is not a valid condition operator', $conditionOperator));
+        }
+
+        $this->conditionOperator = $conditionOperator;
     }
 
     /**
@@ -485,26 +519,8 @@ class Message
      */
     public function toJson()
     {
-        $json = [];
+        $json = $this->getTarget();
 
-        if (count($this->topics) === 1) {
-            $to = $this->topics[0];
-
-            $json['to'] = (!preg_match('!^/topics/!', $to) ? '/topics/' : '') . $to;
-        } elseif ($this->topics) {
-            $conditions = array_map(
-                function ($topic) {
-                    return $topic . (!preg_match('/ in topics$/', $topic) ? ' in topics' : '');
-                },
-                $this->topics
-            );
-
-            $json['condition'] = implode(' || ', $conditions);
-        }
-
-        if ($this->registrationIds) {
-            $json['registration_ids'] = $this->registrationIds;
-        }
         if ($this->collapseKey) {
             $json['collapse_key'] = $this->collapseKey;
         }
@@ -520,7 +536,7 @@ class Message
         if ($this->delayWhileIdle) {
             $json['delay_while_idle'] = $this->delayWhileIdle;
         }
-        if ($this->timeToLive != 2419200) {
+        if ($this->timeToLive !== 2419200) {
             $json['time_to_live'] = $this->timeToLive;
         }
         if ($this->restrictedPackageName) {
@@ -531,5 +547,38 @@ class Message
         }
 
         return Json::encode($json);
+    }
+
+    /**
+     * Get message target parameters for JSON.
+     *
+     * @return array
+     */
+    protected function getTarget()
+    {
+        $target = [];
+
+        if (count($this->topics) === 1) {
+            $to = $this->topics[0];
+
+            $target['to'] = (!preg_match('!^/topics/!', $to) ? '/topics/' : '') . $to;
+        } elseif (count($this->registrationIds) === 1) {
+            $target['to'] = $this->registrationIds[0];
+        } elseif ($this->registrationIds) {
+            $target['registration_ids'] = $this->registrationIds;
+        }
+
+        if (count($this->topics) > 1) {
+            $conditions = array_map(
+                function ($topic) {
+                    return $topic . (!preg_match('/ in topics$/', $topic) ? ' in topics' : '');
+                },
+                $this->topics
+            );
+
+            $target['condition'] = implode(' ' . $this->conditionOperator . ' ', $conditions);
+        }
+
+        return $target;
     }
 }

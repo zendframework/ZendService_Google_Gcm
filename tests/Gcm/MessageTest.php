@@ -64,7 +64,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         self::assertNotContains('registration_ids', $this->m->toJson());
         $this->m->addRegistrationId('1029384756');
         self::assertEquals($this->m->getRegistrationIds(), ['1029384756']);
-        self::assertContains('registration_ids', $this->m->toJson());
+        self::assertContains('to', $this->m->toJson());
     }
 
     public function testExpectedTopicsBehavior()
@@ -80,6 +80,9 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($this->m->getTopics(), $this->validTopics);
         self::assertNotContains('"to"', $this->m->toJson());
         self::assertContains('condition', $this->m->toJson());
+        self::assertContains(' || ', $this->m->toJson());
+        $this->m->setConditionOperator(Message::CONDITION_AND);
+        self::assertContains(' \u0026\u0026 ', $this->m->toJson()); // Contains ' && '
         $this->m->clearTopics();
         self::assertEquals($this->m->getTopics(), []);
         self::assertNotContains('"to"', $this->m->toJson());
@@ -95,6 +98,12 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(\InvalidArgumentException::class);
         $this->m->addRegistrationId(['1234']);
+    }
+
+    public function testInvalidConditionOperatorThrowsException()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->m->setConditionOperator('xor');
     }
 
     public function testExpectedCollapseKeyBehavior()
