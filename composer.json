@@ -21,6 +21,12 @@
             "ZendServiceTest\\Google\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.zendframework.com/"
+        }
+    ],
     "require": {
         "php": "^5.5 || ^7.0",
         "zendframework/zend-http": "^2.0|^3.0",
