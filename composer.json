@@ -13,12 +13,12 @@
     "license": "BSD-3-Clause",
     "autoload": {
         "psr-4": {
-            "ZendService\\Google\\": "library/"
+            "ZendService\\Google\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZendServiceTest\\Google\\": "tests/"
+            "ZendServiceTest\\Google\\": "test/"
         }
     },
     "require": {
