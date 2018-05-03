@@ -22,7 +22,7 @@ use ZendService\Google\Gcm\Message;
  * @group      ZendService_Google
  * @group      ZendService_Google_Gcm
  */
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     /**
      * @var Test

@@ -20,7 +20,7 @@ use ZendService\Google\Gcm\Response;
  * @group      ZendService_Google
  * @group      ZendService_Google_Gcm
  */
-class ResponseTest extends \PHPUnit_Framework_TestCase
+class ResponseTest extends TestCase
 {
     /**
      * @var Message

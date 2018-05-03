@@ -19,7 +19,7 @@ use ZendService\Google\Gcm\Message;
  * @group      ZendService_Google
  * @group      ZendService_Google_Gcm
  */
-class MessageTest extends \PHPUnit_Framework_TestCase
+class MessageTest extends TestCase
 {
     protected $validRegistrationIds = [
         '1234567890',
