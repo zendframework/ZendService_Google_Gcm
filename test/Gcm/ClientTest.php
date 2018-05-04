@@ -11,6 +11,7 @@
  */
 namespace ZendServiceTest\Google\Gcm;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Http\Client\Adapter\Test;
 use Zend\Http\Client as HttpClient;
 use ZendService\Google\Gcm\Client;
@@ -69,7 +70,7 @@ class ClientTest extends TestCase
 
     public function testSetApiKeyThrowsExceptionOnNonString()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         $this->gcmClient->setApiKey([]);
     }
 
@@ -94,28 +95,28 @@ class ClientTest extends TestCase
 
     public function testSendThrowsExceptionWhenServiceUnavailable()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         $this->httpAdapter->setResponse('HTTP/1.1 503 Service Unavailable'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }
 
     public function testSendThrowsExceptionWhenServerUnavailable()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         $this->httpAdapter->setResponse('HTTP/1.1 500 Internal Server Error'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }
 
     public function testSendThrowsExceptionWhenInvalidAuthToken()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         $this->httpAdapter->setResponse('HTTP/1.1 401 Unauthorized'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }
 
     public function testSendThrowsExceptionWhenInvalidPayload()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         $this->httpAdapter->setResponse('HTTP/1.1 400 Bad Request'."\r\n\r\n");
         $this->gcmClient->send($this->message);
     }

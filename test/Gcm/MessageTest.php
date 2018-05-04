@@ -11,6 +11,7 @@
  */
 namespace ZendServiceTest\Google\Gcm;
 
+use PHPUnit\Framework\TestCase;
 use ZendService\Google\Gcm\Message;
 
 /**
@@ -64,7 +65,7 @@ class MessageTest extends TestCase
 
     public function testInvalidRegistrationIdThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->addRegistrationId(['1234']);
     }
 
@@ -82,7 +83,7 @@ class MessageTest extends TestCase
 
     public function testInvalidCollapseKeyThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->setCollapseKey(['1234']);
     }
 
@@ -118,13 +119,13 @@ class MessageTest extends TestCase
 
     public function testInvalidDataThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->addData(['1234'], 'value');
     }
 
     public function testDuplicateDataKeyThrowsException()
     {
-        $this->setExpectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $this->m->setData($this->validData);
         $this->m->addData('key', 'value');
     }
@@ -167,7 +168,7 @@ class MessageTest extends TestCase
 
     public function testInvalidRestrictedPackageThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->setRestrictedPackageName(['1234']);
     }
 
