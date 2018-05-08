@@ -38,6 +38,24 @@ class Response
     const RESULT_CANONICAL = 'registration_id';
 
     /**
+     * Error field responses
+     * @link https://developers.google.com/cloud-messaging/http-server-ref#error-codes
+     * @var string
+     */
+    const ERROR_MISSING_REGISTRATION         = 'MissingRegistration';
+    const ERROR_INVALID_REGISTRATION         = 'InvalidRegistration';
+    const ERROR_NOT_REGISTERED               = 'NotRegistered';
+    const ERROR_INVALID_PACKAGE_NAME         = 'InvalidPackageName';
+    const ERROR_MISMATCH_SENDER_ID           = 'MismatchSenderId';
+    const ERROR_MESSAGE_TOO_BIG              = 'MessageTooBig';
+    const ERROR_INVALID_DATA_KEY             = 'InvalidDataKey';
+    const ERROR_INVALID_TTL                  = 'InvalidTtl';
+    const ERROR_UNAVAILABLE                  = 'Unavailable';
+    const ERROR_INTERNAL_SERVER_ERROR        = 'InternalServerError';
+    const ERROR_DEVICE_MESSAGE_RATE_EXCEEDED = 'DeviceMessageRateExceeded';
+    const ERROR_TOPICS_MESSAGE_RATE_EXCEEDED = 'TopicsMessageRateExceeded';
+
+    /**
      * @var int
      */
     protected $id;
