@@ -22,7 +22,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#18](https://github.com/zendframework/ZendService_Google_Gcm/pull/18) adds a `Content-Length` header with the message length prior to sending
+  messages to GCM; this fixes 411 errors previously observed.
 
 ## 2.0.0 - 2017-01-17
 
