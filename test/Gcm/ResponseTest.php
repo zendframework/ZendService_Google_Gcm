@@ -11,6 +11,7 @@
  */
 namespace ZendServiceTest\Google\Gcm;
 
+use PHPUnit\Framework\TestCase;
 use ZendService\Google\Gcm\Message;
 use ZendService\Google\Gcm\Response;
 
@@ -20,7 +21,7 @@ use ZendService\Google\Gcm\Response;
  * @group      ZendService_Google
  * @group      ZendService_Google_Gcm
  */
-class ResponseTest extends \PHPUnit_Framework_TestCase
+class ResponseTest extends TestCase
 {
     /**
      * @var Message
@@ -64,7 +65,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
             self::markTestSkipped('PHP 7 required.');
         }
 
-        $this->setExpectedException(\TypeError::class);
+        $this->expectException(\TypeError::class);
         new Response('{bad');
     }
 
@@ -74,7 +75,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
             self::markTestSkipped('PHP >=5.5 required.');
         }
 
-        $this->setExpectedException(\PHPUnit_Framework_Error::class);
+        $this->expectException(\PHPUnit_Framework_Error::class);
         new Response('{bad');
     }
 

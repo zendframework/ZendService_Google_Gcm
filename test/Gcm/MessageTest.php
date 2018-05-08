@@ -11,6 +11,7 @@
  */
 namespace ZendServiceTest\Google\Gcm;
 
+use PHPUnit\Framework\TestCase;
 use ZendService\Google\Gcm\Message;
 
 /**
@@ -19,7 +20,7 @@ use ZendService\Google\Gcm\Message;
  * @group      ZendService_Google
  * @group      ZendService_Google_Gcm
  */
-class MessageTest extends \PHPUnit_Framework_TestCase
+class MessageTest extends TestCase
 {
     protected $validRegistrationIds = [
         '1234567890',
@@ -64,7 +65,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidRegistrationIdThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->addRegistrationId(['1234']);
     }
 
@@ -82,7 +83,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidCollapseKeyThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->setCollapseKey(['1234']);
     }
 
@@ -103,28 +104,28 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testExpectedNotificationBehavior()
     {
-        $this->assertEquals($this->m->getNotification(), array());
+        $this->assertEquals($this->m->getNotification(), []);
         $this->assertNotContains('notification', $this->m->toJson());
         $this->m->setNotification($this->validData);
         $this->assertEquals($this->m->getNotification(), $this->validData);
         $this->assertContains('notification', $this->m->toJson());
         $this->m->clearNotification();
-        $this->assertEquals($this->m->getNotification(), array());
+        $this->assertEquals($this->m->getNotification(), []);
         $this->assertNotContains('notification', $this->m->toJson());
         $this->m->addNotification('mykey', 'myvalue');
-        $this->assertEquals($this->m->getNotification(), array('mykey' => 'myvalue'));
+        $this->assertEquals($this->m->getNotification(), ['mykey' => 'myvalue']);
         $this->assertContains('notification', $this->m->toJson());
     }
 
     public function testInvalidDataThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->addData(['1234'], 'value');
     }
 
     public function testDuplicateDataKeyThrowsException()
     {
-        $this->setExpectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $this->m->setData($this->validData);
         $this->m->addData('key', 'value');
     }
@@ -167,7 +168,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidRestrictedPackageThrowsException()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->m->setRestrictedPackageName(['1234']);
     }
 
