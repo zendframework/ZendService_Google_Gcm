@@ -104,16 +104,16 @@ class MessageTest extends TestCase
 
     public function testExpectedNotificationBehavior()
     {
-        $this->assertEquals($this->m->getNotification(), array());
+        $this->assertEquals($this->m->getNotification(), []);
         $this->assertNotContains('notification', $this->m->toJson());
         $this->m->setNotification($this->validData);
         $this->assertEquals($this->m->getNotification(), $this->validData);
         $this->assertContains('notification', $this->m->toJson());
         $this->m->clearNotification();
-        $this->assertEquals($this->m->getNotification(), array());
+        $this->assertEquals($this->m->getNotification(), []);
         $this->assertNotContains('notification', $this->m->toJson());
         $this->m->addNotification('mykey', 'myvalue');
-        $this->assertEquals($this->m->getNotification(), array('mykey' => 'myvalue'));
+        $this->assertEquals($this->m->getNotification(), ['mykey' => 'myvalue']);
         $this->assertContains('notification', $this->m->toJson());
     }
 

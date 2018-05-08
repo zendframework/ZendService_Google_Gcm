@@ -44,7 +44,7 @@ class ClientTest extends TestCase
      */
     protected $message;
 
-    protected function _createJSONResponse($id, $success, $failure, $ids, $results)
+    protected function createJSONResponse($id, $success, $failure, $ids, $results)
     {
         return json_encode([
             'multicast_id' => $id,
@@ -123,7 +123,7 @@ class ClientTest extends TestCase
 
     public function testSendResultInvalidRegistrationId()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'InvalidRegistration']]);
+        $body = $this->createJSONResponse(101, 0, 1, 0, [['error' => 'InvalidRegistration']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK'."\r\n".
             'Context-Type: text/html'."\r\n\r\n".
@@ -140,7 +140,7 @@ class ClientTest extends TestCase
 
     public function testSendResultMismatchSenderId()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'MismatchSenderId']]);
+        $body = $this->createJSONResponse(101, 0, 1, 0, [['error' => 'MismatchSenderId']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK'."\r\n".
             'Context-Type: text/html'."\r\n\r\n".
@@ -157,7 +157,7 @@ class ClientTest extends TestCase
 
     public function testSendResultNotRegistered()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'NotRegistered']]);
+        $body = $this->createJSONResponse(101, 0, 1, 0, [['error' => 'NotRegistered']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK'."\r\n".
             'Context-Type: text/html'."\r\n\r\n".
@@ -174,7 +174,7 @@ class ClientTest extends TestCase
 
     public function testSendResultMessageTooBig()
     {
-        $body = $this->_createJSONResponse(101, 0, 1, 0, [['error' => 'MessageTooBig']]);
+        $body = $this->createJSONResponse(101, 0, 1, 0, [['error' => 'MessageTooBig']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK'."\r\n".
             'Context-Type: text/html'."\r\n\r\n".
@@ -191,7 +191,7 @@ class ClientTest extends TestCase
 
     public function testSendResultSuccessful()
     {
-        $body = $this->_createJSONResponse(101, 1, 0, 0, [['message_id' => '1:2342']]);
+        $body = $this->createJSONResponse(101, 1, 0, 0, [['message_id' => '1:2342']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK'."\r\n".
             'Context-Type: text/html'."\r\n\r\n".
@@ -208,7 +208,7 @@ class ClientTest extends TestCase
 
     public function testSendResultSuccessfulWithRegistrationId()
     {
-        $body = $this->_createJSONResponse(101, 1, 0, 1, [['message_id' => '1:2342', 'registration_id' => 'testfoo']]);
+        $body = $this->createJSONResponse(101, 1, 0, 1, [['message_id' => '1:2342', 'registration_id' => 'testfoo']]);
         $this->httpAdapter->setResponse(
             'HTTP/1.1 200 OK'."\r\n".
             'Context-Type: text/html'."\r\n\r\n".
