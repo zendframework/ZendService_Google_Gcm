@@ -119,7 +119,8 @@ class Client
         $client = $this->getHttpClient();
         $client->setUri(self::SERVER_URI);
         $headers = $client->getRequest()->getHeaders();
-        $headers->addHeaderLine('Authorization', 'key='.$this->getApiKey());
+        $headers->addHeaderLine('Authorization', 'key=' . $this->getApiKey());
+        $headers->addHeaderLine('Content-length', mb_strlen($message->toJson()));
 
         $response = $client->setHeaders($headers)
                            ->setMethod('POST')
