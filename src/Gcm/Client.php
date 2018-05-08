@@ -60,7 +60,7 @@ class Client
      */
     public function setApiKey($apiKey)
     {
-        if (!is_string($apiKey) || empty($apiKey)) {
+        if (! is_string($apiKey) || empty($apiKey)) {
             throw new Exception\InvalidArgumentException('The api key must be a string and not empty');
         }
         $this->apiKey = $apiKey;
@@ -77,7 +77,7 @@ class Client
      */
     public function getHttpClient()
     {
-        if (!$this->httpClient) {
+        if (! $this->httpClient) {
             $this->httpClient = new HttpClient();
             $this->httpClient->setOptions(['strictredirects' => true]);
         }
@@ -147,7 +147,7 @@ class Client
                 break;
         }
 
-        if (!$response = Json::decode($response->getBody(), Json::TYPE_ARRAY)) {
+        if (! $response = Json::decode($response->getBody(), Json::TYPE_ARRAY)) {
             throw new Exception\RuntimeException('Response body did not contain a valid JSON response');
         }
 

@@ -156,7 +156,13 @@ class Response
      */
     public function setResponse(array $response)
     {
-        if (!isset($response['results'], $response['success'], $response['failure'], $response['canonical_ids'], $response['multicast_id'])) {
+        if (! isset(
+            $response['results'],
+            $response['success'],
+            $response['failure'],
+            $response['canonical_ids'],
+            $response['multicast_id']
+        )) {
             throw new Exception\InvalidArgumentException('Response did not contain the proper fields');
         }
 

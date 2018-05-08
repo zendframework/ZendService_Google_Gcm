@@ -108,10 +108,10 @@ class Message
      */
     public function addRegistrationId($id)
     {
-        if (!is_string($id) || empty($id)) {
+        if (! is_string($id) || empty($id)) {
             throw new Exception\InvalidArgumentException('$id must be a non-empty string');
         }
-        if (!in_array($id, $this->registrationIds)) {
+        if (! in_array($id, $this->registrationIds)) {
             $this->registrationIds[] = $id;
         }
 
@@ -151,7 +151,7 @@ class Message
      */
     public function setCollapseKey($key)
     {
-        if (null !== $key && !(is_string($key) && strlen($key) > 0)) {
+        if (null !== $key && ! (is_string($key) && strlen($key) > 0)) {
             throw new Exception\InvalidArgumentException('$key must be null or a non-empty string');
         }
         $this->collapseKey = $key;
@@ -178,7 +178,7 @@ class Message
      */
     public function setPriority($priority)
     {
-        if (!is_null($priority) && !(is_string($priority) && strlen($priority) > 0)) {
+        if (! is_null($priority) && ! (is_string($priority) && strlen($priority) > 0)) {
             throw new Exception\InvalidArgumentException('$priority must be null or a non-empty string');
         }
         $this->priority = $priority;
@@ -227,7 +227,7 @@ class Message
      */
     public function addData($key, $value)
     {
-        if (!is_string($key) || empty($key)) {
+        if (! is_string($key) || empty($key)) {
             throw new Exception\InvalidArgumentException('$key must be a non-empty string');
         }
         if (array_key_exists($key, $this->data)) {
@@ -286,7 +286,7 @@ class Message
      */
     public function addNotification($key, $value)
     {
-        if (!is_string($key) || empty($key)) {
+        if (! is_string($key) || empty($key)) {
             throw new Exception\InvalidArgumentException('$key must be a non-empty string');
         }
         if (array_key_exists($key, $this->notification)) {
@@ -367,7 +367,7 @@ class Message
      */
     public function setRestrictedPackageName($name)
     {
-        if (null !== $name && !(is_string($name) && strlen($name) > 0)) {
+        if (null !== $name && ! (is_string($name) && strlen($name) > 0)) {
             throw new Exception\InvalidArgumentException('$name must be null OR a non-empty string');
         }
         $this->restrictedPackageName = $name;
