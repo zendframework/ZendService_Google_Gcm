@@ -2,9 +2,13 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.1 - TBD
+## 2.1.0 - TBD
 
 ### Added
+
+- [#13](https://github.com/zendframework/ZendService_Google_Gcm/pull/13) adds constants mapping to common GCM error codes as `ZendService\Gcm\Response::ERROR_*`.
+
+### Changed
 
 - Nothing.
 
