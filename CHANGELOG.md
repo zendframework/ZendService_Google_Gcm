@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#38](https://github.com/zendframework/ZendService_Google_Gcm/pull/38) adds support for zend-json v3 releases.
 
 ### Changed
 
