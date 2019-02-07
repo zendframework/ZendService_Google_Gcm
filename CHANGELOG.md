@@ -24,9 +24,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.1.1 - TBD
+## 2.1.1 - 2019-02-07
 
 ### Added
+
+- [#37](https://github.com/zendframework/ZendService_Google_Gcm/pull/37) adds support for PHP 7.3.
 
 - [#38](https://github.com/zendframework/ZendService_Google_Gcm/pull/38) adds support for zend-json v3 releases.
 
